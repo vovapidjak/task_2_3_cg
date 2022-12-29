@@ -2,7 +2,7 @@ package ru.vsu.cs.kg2022.g61.kononov;
 
 import ru.vsu.cs.kg2022.g61.kononov.drawers.LineDrawer;
 
-import javax.sound.sampled.Line;
+import java.util.*;
 import java.awt.*;
 import java.text.DecimalFormat;
 

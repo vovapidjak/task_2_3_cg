@@ -2,47 +2,47 @@ package ru.vsu.cs.kg2022.g61.kononov;
 
 
 public class Star {
-    private RealPoint enterValue;
-    private RealPoint outValue;
-    private RealPoint maxValue;
-    private RealPoint minValue;
 
-    public Star(RealPoint enterValue, RealPoint outValue, RealPoint maxValue, RealPoint minValue) {
-        this.enterValue = enterValue;
-        this.outValue = outValue;
-        this.maxValue = maxValue;
-        this.minValue = minValue;
+    private RealPoint center;
+    private int coreR;
+    private int rayR;
+    private int rays;
+
+
+    public Star(RealPoint center, int coreR, int rayR,  int rays) {
+        this.center = center;
+        this.coreR = coreR;
+        this.rayR = rayR;
+        this.rays = rays;
     }
 
-    public RealPoint getEnterValue() {
-        return enterValue;
+    public RealPoint getCenter() {
+        return center;
     }
 
-    public void setEnterValue(RealPoint enterValue) {
-        this.enterValue = enterValue;
+    public int getCoreR() {
+        return coreR;
     }
 
-    public RealPoint getOutValue() {
-        return outValue;
+    public void setCoreR(int coreR) {
+        this.coreR = coreR;
     }
 
-    public void setOutValue(RealPoint outValue) {
-        this.outValue = outValue;
+    public int getRayR() {
+        return rayR;
     }
 
-    public RealPoint getMaxValue() {
-        return maxValue;
+    public void setRayR(int rayR) {
+        this.rayR = rayR;
     }
 
-    public void setMaxValue(RealPoint maxValue) {
-        this.maxValue = maxValue;
+
+    public int getRays() {
+        return rays;
     }
 
-    public RealPoint getMinValue() {
-        return minValue;
+    public void setRays(int rays) {
+        this.rays = rays;
     }
 
-    public void setMinValue(RealPoint minValue) {
-        this.minValue = minValue;
-    }
 }

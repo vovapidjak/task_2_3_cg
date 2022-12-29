@@ -2,7 +2,7 @@ package ru.vsu.cs.kg2022.g61.kononov;
 
 import ru.vsu.cs.kg2022.g61.kononov.drawers.*;
 
-import javax.sound.sampled.Line;
+//import javax.sound.sampled.Line;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -18,7 +18,7 @@ public class DrawPanel extends JPanel {
     private Line current = null;
     private Point lastP;
     private final java.util.List<Line> lines = new ArrayList<>();
-    private static final List<Star> starList = new ArrayList<Star>();
+    private static final java.util.List<Star> starList = new ArrayList<>();
     private static final double timeLength = 1;
     private double SIZE = 15;
     private boolean isInit = true;
@@ -147,7 +147,7 @@ public class DrawPanel extends JPanel {
                 while (enterValue - deltaMin < 0){
                     deltaMin  = random.nextInt(3) + 0.5;
                 }
-                currStar = new Star(new RealPoint(i * 2, enterValue), new RealPoint(i * 2, enterValue + deltaOut), new RealPoint(i * 2 + timeLength / 2,enterValue + deltaOut + deltaMax), new RealPoint(i * 2 + timeLength / 2,enterValue - deltaMin ));
+                currStar = new Star(new RealPoint(10, 10), 10, 400,10);
                 starList.add(currStar);
             }
             isInit = false;
@@ -155,13 +155,13 @@ public class DrawPanel extends JPanel {
 
         for (int i = 0; i < starList.size() - 1; i++) {
             if(i == 0){
-                drawStar(fillRect, ld, converter, starList.get(i), Color.GREEN);
-            }if(starList.get(i).getEnterValue().getY() > starList.get(i + 1).getEnterValue().getY()){
-                drawStar(fillRect, ld, converter, starList.get(i + 1), Color.RED);
+                drawStar( ld, converter, starList.get(i), Color.GREEN);
+            }if(starList.get(i).getCenter().getY() > starList.get(i + 1).getCenter().getY()){
+                drawStar(ld, converter, starList.get(i + 1), Color.RED);
             }
 
             else{
-                drawStar(fillRect, ld, converter, starList.get(i + 1), Color.GREEN);
+                drawStar( ld, converter, starList.get(i + 1), Color.GREEN);
             }
         }
 
@@ -169,17 +169,19 @@ public class DrawPanel extends JPanel {
         biG.dispose();
     }
 
-    private void drawStar(FillRect fillRect,LineDrawer drawer, ScreenConverter converter, Star star, Color color){
-        ScreenPoint sp1 = converter.r2s(star.getEnterValue());
-        ScreenPoint sp2 = converter.r2s(star.getOutValue());
-        ScreenPoint sp3 = converter.r2s(star.getMaxValue());
-        ScreenPoint sp4 = converter.r2s(star.getMinValue());
-        drawer.drawLine(sp1.getX(),sp1.getY(), sp2.getX(), sp2.getY());
-        drawer.drawLine(sp1.getX(), sp1.getY(), 2 * (sp3.getX() - sp1.getX()) + sp1.getX(), sp1.getY());
-        drawer.drawLine(sp2.getX(), sp2.getY(), 2 * (sp3.getX() - sp1.getX()) + sp2.getX(), sp2.getY());
-        drawer.drawLine(2 * (sp3.getX() - sp1.getX()) + sp1.getX(), sp1.getY(), 2 * (sp3.getX() - sp1.getX()) + sp2.getX(), sp2.getY());
-        drawer.drawLine(sp3.getX(), sp2.getY(), sp3.getX(), sp3.getY());
-        drawer.drawLine(sp4.getX(), sp1.getY(), sp4.getX(), sp4.getY());
-        fillRect.drawRect(sp2.getX(), sp2.getY(), 2 * (sp3.getX() - sp1.getX()), sp1.getY() - sp2.getY(), color);
+    private void drawStar(LineDrawer drawer, ScreenConverter converter, Star star, Color color){
+        ScreenPoint center = converter.r2s(star.getCenter());
+
+        int coreR = star.getCoreR();
+        int rayR = star.getRayR();
+        int n = star.getRays();
+
+        double da = rayR * Math.PI / n;
+        for (int i = 0; i < n; i++){
+            double a = da * i;
+            drawer.drawLine((int) (center.getX() + coreR * Math.cos(a)),(int) (center.getY() + coreR * Math.sin(a)), (int) (center.getX() + rayR * Math.cos(a)), (int) (center.getY() + rayR * Math.sin(a)));
+        }
+
+
     }
 }
