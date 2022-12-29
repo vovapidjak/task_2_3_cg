@@ -123,20 +123,11 @@ public class DrawPanel extends JPanel {
         //LineDrawer ld = new WULineDrawer(new GraphicsPixelDrawer(biG));
 
         biG.setColor(Color.BLACK);
-        /*drawLine(ld,converter,ox);
-        drawLine(ld,converter,oy);*/
-        //drawValueOnOy(ld, converter);
-        //drawValueOnOx(ld, converter);
 
-        /*for (Line line : lines) {
-            drawLine(ld, converter, line);
-        }
-        if(current != null){
-            drawLine(ld,converter, current);
-        }*/
+
         drawing.draw(ld,biG);
 
-        FillRect fillRect = new FillRect(new GraphicsPixelDrawer(biG));
+
         Star currStar;
         if(isInit){
             for (int i = 0; i < 10; i++) {
