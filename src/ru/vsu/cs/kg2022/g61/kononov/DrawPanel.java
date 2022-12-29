@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class DrawPanel extends JPanel {
-    private int currentX, currentY;
     private final ScreenConverter converter;
     private Line current = null;
     private Point lastP;
@@ -118,8 +117,8 @@ public class DrawPanel extends JPanel {
         biG.setColor(Color.WHITE);
         biG.fillRect(0,0,getWidth(),getHeight());
 
-        LineDrawer ld = new DDALineDrawer(new GraphicsPixelDrawer(biG));
-        //LineDrawer ld = new BresenhamLineDrawer(new GraphicsPixelDrawer(biG));
+        //LineDrawer ld = new DDALineDrawer(new GraphicsPixelDrawer(biG));
+        LineDrawer ld = new BresenhamLineDrawer(new GraphicsPixelDrawer(biG));
         //LineDrawer ld = new WULineDrawer(new GraphicsPixelDrawer(biG));
 
         biG.setColor(Color.BLACK);
@@ -130,31 +129,32 @@ public class DrawPanel extends JPanel {
 
         Star currStar;
 
-
-
-
-
-
-
-
-
-        currStar = new Star(new RealPoint(10, 10), 10, 400,20);
-        starList.add(currStar);
-
-
-
-
-        for (int i = 0; i < starList.size() - 1; i++) {
-            if(i == 0){
-                drawStar( ld, converter, starList.get(i));
-            }if(starList.get(i).getCenter().getY() > starList.get(i + 1).getCenter().getY()){
-                drawStar(ld, converter, starList.get(i + 1));
+        if (isInit) {
+            for (int i = 0; i < 10; i++) {
+                int x = (int) (Math.random() * 50);
+                int y = (int) (Math.random() * 50);
+                currStar = new Star(new RealPoint(x, y), 1, 40, 20);
+                starList.add(currStar);
             }
 
-            else{
-                drawStar( ld, converter, starList.get(i + 1));
+            isInit = false;
+        }
+
+
+
+
+
+
+
+        for (int i = 0; i < starList.size() - 1; i++){
+
+            if (i == 0) {
+                drawStar(ld, converter, starList.get(i));
+            } else {
+                drawStar(ld, converter, starList.get(i+1));
             }
         }
+
 
         g2d.drawImage(bi,0,0,null);
         biG.dispose();
