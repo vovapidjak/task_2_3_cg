@@ -129,30 +129,30 @@ public class DrawPanel extends JPanel {
 
 
         Star currStar;
-        if(isInit){
-            for (int i = 0; i < 10; i++) {
-                double enterValue = random.nextInt(10) + 1;
-                double deltaOut = random.nextInt(3) + 0.5;
-                double deltaMax = random.nextInt(3) + 0.5;
-                double deltaMin = random.nextInt(3) + 0.5;
-                while (enterValue - deltaMin < 0){
-                    deltaMin  = random.nextInt(3) + 0.5;
-                }
-                currStar = new Star(new RealPoint(10, 10), 10, 400,10);
-                starList.add(currStar);
-            }
-            isInit = false;
-        }
+
+
+
+
+
+
+
+
+
+        currStar = new Star(new RealPoint(10, 10), 10, 400,20);
+        starList.add(currStar);
+
+
+
 
         for (int i = 0; i < starList.size() - 1; i++) {
             if(i == 0){
-                drawStar( ld, converter, starList.get(i), Color.GREEN);
+                drawStar( ld, converter, starList.get(i));
             }if(starList.get(i).getCenter().getY() > starList.get(i + 1).getCenter().getY()){
-                drawStar(ld, converter, starList.get(i + 1), Color.RED);
+                drawStar(ld, converter, starList.get(i + 1));
             }
 
             else{
-                drawStar( ld, converter, starList.get(i + 1), Color.GREEN);
+                drawStar( ld, converter, starList.get(i + 1));
             }
         }
 
@@ -160,19 +160,21 @@ public class DrawPanel extends JPanel {
         biG.dispose();
     }
 
-    private void drawStar(LineDrawer drawer, ScreenConverter converter, Star star, Color color){
+    private void drawStar(LineDrawer drawer, ScreenConverter converter, Star star){
         ScreenPoint center = converter.r2s(star.getCenter());
 
         int coreR = star.getCoreR();
         int rayR = star.getRayR();
         int n = star.getRays();
 
-        double da = rayR * Math.PI / n;
+        double da = 2 * Math.PI / n;
         for (int i = 0; i < n; i++){
             double a = da * i;
-            drawer.drawLine((int) (center.getX() + coreR * Math.cos(a)),(int) (center.getY() + coreR * Math.sin(a)), (int) (center.getX() + rayR * Math.cos(a)), (int) (center.getY() + rayR * Math.sin(a)));
+            drawer.drawLine(
+                    (int) (center.getX() + coreR * Math.cos(a)),
+                    (int) (center.getY() + coreR * Math.sin(a)),
+                    (int) (center.getX() + rayR * Math.cos(a)),
+                    (int) (center.getY() + rayR * Math.sin(a)));
         }
-
-
     }
 }
